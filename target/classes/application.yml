@@ -1,0 +1,34 @@
+spring:
+  datasource:
+    url: jdbc:mysql://tweetdb.cd0fbymfyjl3.us-west-2.rds.amazonaws.com:3306/tweetdbaws?useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false&requireSSL=false&allowPublicKeyRetrieval=true
+    username: admin
+    password: yLTFAun3a9zmo0jEYn7N
+  application:
+    name: TweetAppService
+kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: tweetApp
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      batch-size: 100000
+      
+logging:
+  file:
+    path: './config/logs'
+    name: ${logging.file.path}/my-app.log
+  level:
+    org.springframework.web: ERROR
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        
+client:
+  url: http://localhost:4200
